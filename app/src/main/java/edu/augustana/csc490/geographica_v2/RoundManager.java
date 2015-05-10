@@ -1,6 +1,8 @@
 package edu.augustana.csc490.geographica_v2;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -111,11 +113,26 @@ public class RoundManager {
 
     public void setTopTextView(TextView topTextView, int gameMode, int roundNum, int currentPlayer){
 
+        final Typeface font = Typeface.createFromAsset(parentContext.getAssets(), "fonts/moon_light.otf");
+
         if(gameMode == 1){
             topTextView.setText("Round: " + roundNum);
         }else{
             topTextView.setText("Round: " + roundNum + " Player " + currentPlayer);
         }
+        topTextView.setTypeface(font);
+        topTextView.setTextSize(24);
+        topTextView.setTextColor(Color.BLACK);
+    }
+
+    public void setTopTextView(TextView topTextView, String textViewText){
+
+        final Typeface font = Typeface.createFromAsset(parentContext.getAssets(), "fonts/moon_light.otf");
+
+        topTextView.setText(textViewText);
+        topTextView.setTypeface(font);
+        topTextView.setTextSize(24);
+        topTextView.setTextColor(Color.BLACK);
 
     }
 

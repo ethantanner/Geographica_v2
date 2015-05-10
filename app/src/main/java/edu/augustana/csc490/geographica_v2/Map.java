@@ -2,6 +2,8 @@ package edu.augustana.csc490.geographica_v2;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -16,6 +18,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -45,6 +48,8 @@ public class Map extends Activity implements OnMapReadyCallback {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.map);
 
+        final Typeface font = Typeface.createFromAsset(this.getAssets(), "fonts/moon_light.otf");
+
         Intent intent = getIntent();
         currentPlayer = intent.getIntExtra("currentPlayer", 0);
         scorePlayer1 = intent.getIntExtra("scorePlayer1", 0);
@@ -62,9 +67,15 @@ public class Map extends Activity implements OnMapReadyCallback {
 
         Button panoramaButton = (Button) findViewById(R.id.panoramaButton);
         panoramaButton.setOnClickListener(panoramaButtonListener);
+        panoramaButton.setTypeface(font);
+        panoramaButton.setTextSize(24);
+        panoramaButton.setTextColor(Color.BLACK);
 
         Button submitButton = (Button) findViewById(R.id.submitButton);
         submitButton.setOnClickListener(submitButtonListener);
+        submitButton.setTypeface(font);
+        submitButton.setTextSize(24);
+        submitButton.setTextColor(Color.BLACK);
 
         roundManager.setTopTextView((TextView) findViewById(R.id.topTextView),gameMode,roundNum, currentPlayer);
     }
@@ -73,8 +84,7 @@ public class Map extends Activity implements OnMapReadyCallback {
     public void onMapReady(GoogleMap map) {
         mainMap = map;
         mainMap.setOnMapLongClickListener(mapLongClickListener);
-
-        myMarker = mainMap.addMarker(new MarkerOptions().position(new LatLng(39.828127, -98.579404)));
+        myMarker = mainMap.addMarker(new MarkerOptions().position(new LatLng(39.828127, -98.579404)).icon(BitmapDescriptorFactory.fromResource(R.drawable.pinsmallred)));
         myMarker.setDraggable(true);
     }
 
@@ -107,7 +117,7 @@ public class Map extends Activity implements OnMapReadyCallback {
         @Override
         public void onClick(View view) {
 
-            mainMap.addMarker(new MarkerOptions().position(latLngOfPanoID));
+            mainMap.addMarker(new MarkerOptions().position(latLngOfPanoID).icon(BitmapDescriptorFactory.fromResource(R.drawable.pinsmallblue)));
 
             Button panoramaButton = (Button) findViewById(R.id.panoramaButton);
 
@@ -144,7 +154,7 @@ public class Map extends Activity implements OnMapReadyCallback {
                 @Override
                 public void run() {
 
-                    int roundScore = roundManager.calculateScore(myMarker,latLngOfPanoID);
+                    int roundScore = roundManager.calculateScore(myMarker, latLngOfPanoID);
 
                     if(currentPlayer ==1){
                         scorePlayer1 += roundScore;

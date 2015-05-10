@@ -3,7 +3,10 @@ package edu.augustana.csc490.geographica_v2;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -17,6 +20,8 @@ import com.google.android.gms.maps.StreetViewPanoramaFragment;
  * Created by Ethan on 5/9/2015.
  */
 public class EndRound extends Activity {
+
+    public final int NUM_ROUNDS = 5;
 
     int currentPlayer;
     int scorePlayer1;
@@ -46,11 +51,19 @@ public class EndRound extends Activity {
 
         roundManager = new RoundManager(getBaseContext());
 
+        final Typeface font = Typeface.createFromAsset(this.getAssets(), "fonts/moon_light.otf");
+
         Button nextRoundButton = (Button) findViewById(R.id.nextRoundButton);
         nextRoundButton.setOnClickListener(nextRoundButtonListener);
+        nextRoundButton.setTypeface(font);
+        nextRoundButton.setTextSize(24);
+        nextRoundButton.setTextColor(Color.BLACK);
 
         TextView roundScoreView = (TextView) findViewById(R.id.roundScoreView);
         roundScoreView.setText("Last Round: " + roundScore);
+        roundScoreView.setTypeface(font);
+        roundScoreView.setTextSize(24);
+        roundScoreView.setTextColor(Color.BLACK);
 
         roundManager.setTopTextView((TextView) findViewById(R.id.topTextView),gameMode,roundNum, currentPlayer);
 
@@ -60,6 +73,33 @@ public class EndRound extends Activity {
         }else {
             totalScoreView.setText("Total Score: " + scorePlayer2);
         }
+
+        if(roundNum >= NUM_ROUNDS){
+            nextRoundButton.setVisibility(View.GONE);
+
+            /////////////// http://stackoverflow.com/questions/7965494/how-to-put-some-delay-in-calling-an-activity-from-another-activity
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+
+                    Intent endGameIntent = new Intent(EndRound.this,EndGame.class);
+                    endGameIntent.putExtra("scorePlayer1", scorePlayer1);
+                    endGameIntent.putExtra("scorePlayer2",scorePlayer2);
+                    endGameIntent.putExtra("roundNum", roundNum);
+                    endGameIntent.putExtra("currentPlayer", currentPlayer);
+                    endGameIntent.putExtra("gameMode", gameMode);
+                    endGameIntent.putExtra("roundScore", roundScore);
+                    endGameIntent.putExtra("panoID", panoID);
+
+                    startActivity(endGameIntent);
+
+                }
+            }, 3000);
+
+            /////////////// END http://stackoverflow.com/questions/7965494/how-to-put-some-delay-in-calling-an-activity-from-another-activity
+        }
+
     }
     public View.OnClickListener nextRoundButtonListener = new View.OnClickListener() {
         @Override

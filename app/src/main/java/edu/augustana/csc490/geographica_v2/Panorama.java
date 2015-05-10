@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -44,6 +46,8 @@ public class Panorama extends Activity implements OnStreetViewPanoramaReadyCallb
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.panorama);
 
+        final Typeface font = Typeface.createFromAsset(this.getAssets(), "fonts/moon_light.otf");
+
         Intent intent = getIntent();
         currentPlayer = intent.getIntExtra("currentPlayer", 0);
         scorePlayer1 = intent.getIntExtra("scorePlayer1", 0);
@@ -63,6 +67,9 @@ public class Panorama extends Activity implements OnStreetViewPanoramaReadyCallb
 
         Button mapButton = (Button) findViewById(R.id.mapButton);
         mapButton.setOnClickListener(mapButtonListener);
+        mapButton.setTypeface(font);
+        mapButton.setTextSize(24);
+        mapButton.setTextColor(Color.BLACK);
 
     }
 
@@ -78,7 +85,7 @@ public class Panorama extends Activity implements OnStreetViewPanoramaReadyCallb
             mainPanorama.setPosition(panoID);
             roundManager.setTopTextView((TextView) findViewById(R.id.topTextView),gameMode,roundNum, currentPlayer);
         }else {
-            mainPanorama.setPosition(playRound(),10000000);
+            mainPanorama.setPosition(playRound(),100000000);
         }
         mainPanorama.setStreetNamesEnabled(false);
     }
@@ -91,7 +98,7 @@ public class Panorama extends Activity implements OnStreetViewPanoramaReadyCallb
 
             if(panoID != null) {
                 if (visitedLocations.contains(streetViewPanoramaLocation.panoId)) {
-                    mainPanorama.setPosition(playRound(), 10000000);
+                    mainPanorama.setPosition(playRound(), 100000000);
                 }
                 visitedLocationsEditor.putBoolean(streetViewPanoramaLocation.panoId, true);
                 visitedLocationsEditor.commit();

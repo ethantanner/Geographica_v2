@@ -23,6 +23,8 @@
             android:label="Panorama"/>
         <activity android:name=".EndRound"
             android:label="EndRound"/>
+        <activity android:name=".EndGame"
+            android:label="EndGame"/>
 
 
         <meta-data

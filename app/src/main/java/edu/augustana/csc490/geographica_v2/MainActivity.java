@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 
 
 public class MainActivity extends Activity {
@@ -22,6 +23,11 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         final Typeface font = Typeface.createFromAsset(this.getAssets(), "fonts/moon_light.otf");
+
+        TextView titleTextView = (TextView) findViewById(R.id.title);
+        titleTextView.setTypeface(font);
+        titleTextView.setTextSize(32);
+        titleTextView.setTextColor(Color.WHITE);
 
         Button singlePlayerButton = (Button) findViewById(R.id.single);
         singlePlayerButton.setOnClickListener(singlePlayerButtonListener);
