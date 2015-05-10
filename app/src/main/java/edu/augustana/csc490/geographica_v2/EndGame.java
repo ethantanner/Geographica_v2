@@ -57,7 +57,11 @@ public class EndGame extends Activity {
         mainMenuButton.setTextColor(Color.BLACK);
 
         TextView roundScoreView = (TextView) findViewById(R.id.roundScoreView);
-        roundScoreView.setText("Player1 Score: " + scorePlayer1);
+        if(gameMode == 1){
+            roundScoreView.setText("Total Score: " + scorePlayer1);
+        }else{
+            roundScoreView.setText("Player1 Score: " + scorePlayer1);
+        }
         roundScoreView.setTypeface(font);
         roundScoreView.setTextSize(24);
         roundScoreView.setTextColor(Color.BLACK);
@@ -65,7 +69,9 @@ public class EndGame extends Activity {
         roundManager.setTopTextView((TextView) findViewById(R.id.topTextView), "Game Over");
 
         TextView totalScoreView = (TextView) findViewById(R.id.totalScoreView);
-        totalScoreView.setText("Player2 Score: " + scorePlayer2);
+        if(gameMode != 1) {
+            totalScoreView.setText("Player2 Score: " + scorePlayer2);
+        }
         totalScoreView.setTypeface(font);
         totalScoreView.setTextSize(24);
         totalScoreView.setTextColor(Color.BLACK);

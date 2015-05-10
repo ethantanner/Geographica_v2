@@ -21,7 +21,7 @@ import com.google.android.gms.maps.StreetViewPanoramaFragment;
  */
 public class EndRound extends Activity {
 
-    public final int NUM_ROUNDS = 5;
+    public final int NUM_ROUNDS = 1;
 
     int currentPlayer;
     int scorePlayer1;
@@ -70,11 +70,18 @@ public class EndRound extends Activity {
         TextView totalScoreView = (TextView) findViewById(R.id.totalScoreView);
         if(currentPlayer==1){
             totalScoreView.setText("Total Score: " + scorePlayer1);
-        }else {
+        }else{
             totalScoreView.setText("Total Score: " + scorePlayer2);
         }
+        totalScoreView.setTypeface(font);
+        totalScoreView.setTextSize(24);
+        totalScoreView.setTextColor(Color.BLACK);
+        int numPlayers = 1;
+        if(gameMode > 1){
+            numPlayers = 2;
+        }
 
-        if(roundNum >= NUM_ROUNDS){
+        if(roundNum >= NUM_ROUNDS && currentPlayer == numPlayers){
             nextRoundButton.setVisibility(View.GONE);
 
             /////////////// http://stackoverflow.com/questions/7965494/how-to-put-some-delay-in-calling-an-activity-from-another-activity
