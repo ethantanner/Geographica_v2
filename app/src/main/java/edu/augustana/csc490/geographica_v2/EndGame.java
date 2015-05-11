@@ -1,19 +1,29 @@
 package edu.augustana.csc490.geographica_v2;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.text.InputType;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.StreetViewPanorama;
 import com.google.android.gms.maps.StreetViewPanoramaFragment;
+import com.parse.*;
+
+import java.util.List;
 
 /**
  * Created by Ethan on 5/9/2015.
@@ -21,6 +31,7 @@ import com.google.android.gms.maps.StreetViewPanoramaFragment;
 public class EndGame extends Activity {
 
     int currentPlayer;
+    String playerName;
     int scorePlayer1;
     int scorePlayer2;
     int roundNum;
@@ -59,6 +70,8 @@ public class EndGame extends Activity {
         TextView roundScoreView = (TextView) findViewById(R.id.roundScoreView);
         if(gameMode == 1){
             roundScoreView.setText("Total Score: " + scorePlayer1);
+            //call to method that handles the parse calls.
+            updateLeaderboard();
         }else{
             roundScoreView.setText("Player1 Score: " + scorePlayer1);
         }
@@ -77,6 +90,29 @@ public class EndGame extends Activity {
         totalScoreView.setTextColor(Color.BLACK);
 
     }
+
+    public void updateLeaderboard(){
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        //used to enter new data into parse HighScores table
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setTitle("New Score Entry")
+                .setMessage("Enter Player Name")
+                .setView(input)
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        playerName = input.getText().toString();
+                        ParseObject highScores = new ParseObject("HighScores");
+                        highScores.put("userName", playerName);
+                        highScores.put("score", scorePlayer1);
+                        highScores.saveInBackground();
+                    }
+                });
+        builder.show();
+    }
+
     public View.OnClickListener mainMenuButtonListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
