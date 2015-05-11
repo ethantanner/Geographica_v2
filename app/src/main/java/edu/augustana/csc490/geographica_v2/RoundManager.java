@@ -14,6 +14,7 @@ import com.google.android.gms.maps.model.Marker;
 
 import java.util.List;
 import java.util.Random;
+import static edu.augustana.csc490.geographica_v2.PolyUtil.*;
 
 /**
  * Created by Ethan on 5/9/2015.
@@ -67,9 +68,15 @@ public class RoundManager {
         Log.w("random Latitude:", Double.toString(latitude));
         Log.w("random Longitude:", Double.toString(longitude));
 
-        if(!hasCountryCode(new LatLng(latitude,longitude))){
+        //if(!hasCountryCode(new LatLng(latitude,longitude))){
+        //    getRandomLocation();
+
+
+        if(!containsLocation(new LatLng(latitude,longitude),new GetPolygons().getAmericas(),false)){
             getRandomLocation();
+            Log.w("loop","");
         }
+
         return new LatLng(latitude,longitude);
 
     }
