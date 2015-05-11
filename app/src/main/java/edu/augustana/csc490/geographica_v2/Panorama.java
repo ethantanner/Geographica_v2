@@ -85,7 +85,7 @@ public class Panorama extends Activity implements OnStreetViewPanoramaReadyCallb
             mainPanorama.setPosition(panoID);
             roundManager.setTopTextView((TextView) findViewById(R.id.topTextView),gameMode,roundNum, currentPlayer);
         }else {
-            mainPanorama.setPosition(playRound(),1000000);
+            mainPanorama.setPosition(playRound(),20000000);
         }
         mainPanorama.setStreetNamesEnabled(false);
     }
@@ -98,7 +98,7 @@ public class Panorama extends Activity implements OnStreetViewPanoramaReadyCallb
 
             if(panoID != null) {
                 if (visitedLocations.contains(streetViewPanoramaLocation.panoId)) {
-                    mainPanorama.setPosition(playRound(), 1000000);
+                    mainPanorama.setPosition(playRound(), 20000000);
                 }
                 visitedLocationsEditor.putBoolean(streetViewPanoramaLocation.panoId, true);
                 visitedLocationsEditor.commit();

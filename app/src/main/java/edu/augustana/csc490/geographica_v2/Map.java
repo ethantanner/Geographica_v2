@@ -119,6 +119,9 @@ public class Map extends Activity implements OnMapReadyCallback {
 
             mainMap.addMarker(new MarkerOptions().position(latLngOfPanoID).icon(BitmapDescriptorFactory.fromResource(R.drawable.pinsmallblue)));
 
+            myMarker.setDraggable(false);
+            mainMap.setOnMapLongClickListener(null);
+
             Button panoramaButton = (Button) findViewById(R.id.panoramaButton);
 
             Button submitButton = (Button) findViewById(R.id.submitButton);
