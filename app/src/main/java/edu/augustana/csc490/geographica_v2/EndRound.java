@@ -21,7 +21,7 @@ import com.google.android.gms.maps.StreetViewPanoramaFragment;
  */
 public class EndRound extends Activity {
 
-    public final int NUM_ROUNDS = 1;
+    public final int NUM_ROUNDS = 3;
 
     int currentPlayer;
     int scorePlayer1;
