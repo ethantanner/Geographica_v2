@@ -71,16 +71,18 @@ public class RoundManager {
 
         return new LatLng(latitude,longitude);
 
-
     }
 
     public LatLng getLatLngSpecial(){
 
         LatLng location = getRandomLocation();
 
-        List<LatLng> poly = new GetPolygons().getAmericas();
+        GetPolygons getPolygons = new GetPolygons();
 
-        while(!containsLocation(location,poly,false)){
+        List<LatLng> americasPoly = getPolygons.getAmericas();
+        List<LatLng> afroEurAsiaPoly = getPolygons.getAfroEurAsia();
+
+        while(!containsLocation(location,americasPoly,false) && !containsLocation(location,afroEurAsiaPoly,false)){
             location = getRandomLocation();
         }
         return location;
