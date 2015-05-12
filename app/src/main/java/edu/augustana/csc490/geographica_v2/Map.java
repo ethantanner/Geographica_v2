@@ -49,13 +49,7 @@ public class Map extends Activity implements OnMapReadyCallback {
         setContentView(R.layout.map);
 
         Intent intent = getIntent();
-        currentPlayer = intent.getIntExtra("currentPlayer", 0);
-        scorePlayer1 = intent.getIntExtra("scorePlayer1", 0);
-        scorePlayer2 = intent.getIntExtra("scorePlayer2", 0);
-        roundNum = intent.getIntExtra("roundNum", 0);
-        gameMode = intent.getIntExtra("gameMode", -1);
-        panoID = intent.getStringExtra("panoID");
-        latLngOfPanoID = new LatLng(Double.parseDouble(intent.getStringArrayListExtra("latLngOfPanoID").get(0)),Double.parseDouble(intent.getStringArrayListExtra("latLngOfPanoID").get(1)));
+        initiateValues(intent);
 
 
         roundManager = new RoundManager(getBaseContext());
@@ -175,5 +169,19 @@ public class Map extends Activity implements OnMapReadyCallback {
             ////////////// END http://stackoverflow.com/questions/7965494/how-to-put-some-delay-in-calling-an-activity-from-another-activity
         }
     };
+
+    /**
+     * @param intent
+     * Initiates player scores, round number, round scores, and Google panorama ID
+     */
+    public void initiateValues(Intent intent){
+        currentPlayer = intent.getIntExtra("currentPlayer", 0);
+        scorePlayer1 = intent.getIntExtra("scorePlayer1", 0);
+        scorePlayer2 = intent.getIntExtra("scorePlayer2", 0);
+        roundNum = intent.getIntExtra("roundNum", 0);
+        gameMode = intent.getIntExtra("gameMode", -1);
+        panoID = intent.getStringExtra("panoID");
+        latLngOfPanoID = new LatLng(Double.parseDouble(intent.getStringArrayListExtra("latLngOfPanoID").get(0)),Double.parseDouble(intent.getStringArrayListExtra("latLngOfPanoID").get(1)));
+    }
 
 }

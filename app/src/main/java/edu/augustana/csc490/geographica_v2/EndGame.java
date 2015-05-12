@@ -51,13 +51,7 @@ public class EndGame extends Activity {
         setContentView(R.layout.endgame);
 
         Intent intent = getIntent();
-        currentPlayer = intent.getIntExtra("currentPlayer", 0);
-        scorePlayer1 = intent.getIntExtra("scorePlayer1", 0);
-        scorePlayer2 = intent.getIntExtra("scorePlayer2", 0);
-        roundNum = intent.getIntExtra("roundNum", 0);
-        gameMode = intent.getIntExtra("gameMode", -1);
-        roundScore = intent.getIntExtra("roundScore", -1);
-        panoID = intent.getStringExtra("panoID");
+        initiateValues(intent);
 
         roundManager = new RoundManager(getBaseContext());
 
@@ -79,6 +73,20 @@ public class EndGame extends Activity {
             roundManager.styleTextView((TextView) findViewById(R.id.totalScoreView), "Player2 Score: " + scorePlayer2, 24);
         }
 
+    }
+
+    /**
+     * @param intent
+     * Initiates player scores, round number, round scores, and Google panorama ID
+     */
+    public void initiateValues(Intent intent){
+        currentPlayer = intent.getIntExtra("currentPlayer", 0);
+        scorePlayer1 = intent.getIntExtra("scorePlayer1", 0);
+        scorePlayer2 = intent.getIntExtra("scorePlayer2", 0);
+        roundNum = intent.getIntExtra("roundNum", 0);
+        gameMode = intent.getIntExtra("gameMode", -1);
+        roundScore = intent.getIntExtra("roundScore", -1);
+        panoID = intent.getStringExtra("panoID");
     }
 
     public void updatePlayerCount(){

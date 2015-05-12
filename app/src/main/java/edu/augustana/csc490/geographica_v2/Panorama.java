@@ -47,12 +47,7 @@ public class Panorama extends Activity implements OnStreetViewPanoramaReadyCallb
         setContentView(R.layout.panorama);
 
         Intent intent = getIntent();
-        currentPlayer = intent.getIntExtra("currentPlayer", 0);
-        scorePlayer1 = intent.getIntExtra("scorePlayer1", 0);
-        scorePlayer2 = intent.getIntExtra("scorePlayer2", 0);
-        roundNum = intent.getIntExtra("roundNum", 0);
-        gameMode = intent.getIntExtra("gameMode", -1);
-        panoID = intent.getStringExtra("panoID");
+        initiateValues(intent);
 
         Log.w("gameMode", ""+gameMode);
         Log.w("CurrentPlayer", ""+currentPlayer);
@@ -137,5 +132,18 @@ public class Panorama extends Activity implements OnStreetViewPanoramaReadyCallb
             startActivity(mapViewIntent);
         }
     };
+
+    /**
+     * @param intent
+     * Initiates player scores, round number, round scores, and Google panorama ID
+     */
+    public void initiateValues(Intent intent){
+        currentPlayer = intent.getIntExtra("currentPlayer", 0);
+        scorePlayer1 = intent.getIntExtra("scorePlayer1", 0);
+        scorePlayer2 = intent.getIntExtra("scorePlayer2", 0);
+        roundNum = intent.getIntExtra("roundNum", 0);
+        gameMode = intent.getIntExtra("gameMode", -1);
+        panoID = intent.getStringExtra("panoID");
+    }
 
 }
