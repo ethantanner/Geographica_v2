@@ -59,8 +59,6 @@ public class EndGame extends Activity {
 
         roundManager = new RoundManager(getBaseContext());
 
-        final Typeface font = Typeface.createFromAsset(this.getAssets(), "fonts/moon_light.otf");
-
         Button mainMenuButton = (Button) findViewById(R.id.mainMenuButton);
         mainMenuButton.setOnClickListener(mainMenuButtonListener);
         roundManager.styleButton(mainMenuButton,24);
