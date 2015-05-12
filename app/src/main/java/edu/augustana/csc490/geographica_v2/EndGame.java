@@ -131,7 +131,7 @@ public class EndGame extends Activity {
 
     public void displayHighScore(){
         ParseQuery<ParseObject> query = ParseQuery.getQuery("HighScores");
-        query.orderByDescending("score");
+        query.orderByAscending("score");
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> scoreList, ParseException e) {
                 if (e == null) {
