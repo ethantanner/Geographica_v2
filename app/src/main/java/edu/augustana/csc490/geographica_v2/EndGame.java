@@ -63,31 +63,20 @@ public class EndGame extends Activity {
 
         Button mainMenuButton = (Button) findViewById(R.id.mainMenuButton);
         mainMenuButton.setOnClickListener(mainMenuButtonListener);
-        mainMenuButton.setTypeface(font);
-        mainMenuButton.setTextSize(24);
-        mainMenuButton.setTextColor(Color.BLACK);
+        roundManager.styleButton(mainMenuButton,24);
 
-        TextView roundScoreView = (TextView) findViewById(R.id.roundScoreView);
         if(gameMode == 1){
-            roundScoreView.setText("Total Score: " + scorePlayer1);
+            roundManager.styleTextView((TextView) findViewById(R.id.roundScoreView),"Total Score: " + scorePlayer1,24);
             //call to method that handles the parse calls.
             updateLeaderboard();
         }else{
-            roundScoreView.setText("Player1 Score: " + scorePlayer1);
+            roundManager.styleTextView((TextView) findViewById(R.id.roundScoreView),"Player1 Score: " + scorePlayer1,24);
         }
-        roundScoreView.setTypeface(font);
-        roundScoreView.setTextSize(24);
-        roundScoreView.setTextColor(Color.BLACK);
+        roundManager.styleTextView((TextView) findViewById(R.id.topTextView), "Game Over",24);
 
-        roundManager.setTopTextView((TextView) findViewById(R.id.topTextView), "Game Over");
-
-        TextView totalScoreView = (TextView) findViewById(R.id.totalScoreView);
         if(gameMode != 1) {
-            totalScoreView.setText("Player2 Score: " + scorePlayer2);
+            roundManager.styleTextView((TextView) findViewById(R.id.totalScoreView), "Player2 Score: " + scorePlayer2, 24);
         }
-        totalScoreView.setTypeface(font);
-        totalScoreView.setTextSize(24);
-        totalScoreView.setTextColor(Color.BLACK);
 
     }
 

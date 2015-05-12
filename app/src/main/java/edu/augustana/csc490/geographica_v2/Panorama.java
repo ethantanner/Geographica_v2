@@ -46,8 +46,6 @@ public class Panorama extends Activity implements OnStreetViewPanoramaReadyCallb
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.panorama);
 
-        final Typeface font = Typeface.createFromAsset(this.getAssets(), "fonts/moon_light.otf");
-
         Intent intent = getIntent();
         currentPlayer = intent.getIntExtra("currentPlayer", 0);
         scorePlayer1 = intent.getIntExtra("scorePlayer1", 0);
@@ -67,9 +65,7 @@ public class Panorama extends Activity implements OnStreetViewPanoramaReadyCallb
 
         Button mapButton = (Button) findViewById(R.id.mapButton);
         mapButton.setOnClickListener(mapButtonListener);
-        mapButton.setTypeface(font);
-        mapButton.setTextSize(24);
-        mapButton.setTextColor(Color.BLACK);
+        roundManager.styleButton(mapButton,24);
 
     }
 

@@ -51,31 +51,23 @@ public class EndRound extends Activity {
 
         roundManager = new RoundManager(getBaseContext());
 
-        final Typeface font = Typeface.createFromAsset(this.getAssets(), "fonts/moon_light.otf");
-
         Button nextRoundButton = (Button) findViewById(R.id.nextRoundButton);
         nextRoundButton.setOnClickListener(nextRoundButtonListener);
-        nextRoundButton.setTypeface(font);
-        nextRoundButton.setTextSize(24);
-        nextRoundButton.setTextColor(Color.BLACK);
+        roundManager.styleButton(nextRoundButton,24);
 
-        TextView roundScoreView = (TextView) findViewById(R.id.roundScoreView);
-        roundScoreView.setText("Last Round: " + roundScore);
-        roundScoreView.setTypeface(font);
-        roundScoreView.setTextSize(24);
-        roundScoreView.setTextColor(Color.BLACK);
+        //Style and set roundScoreView
+        roundManager.styleTextView((TextView) findViewById(R.id.roundScoreView),"Last Round: " + roundScore,24);
 
+        //Style and set topTextView
         roundManager.setTopTextView((TextView) findViewById(R.id.topTextView),gameMode,roundNum, currentPlayer);
 
-        TextView totalScoreView = (TextView) findViewById(R.id.totalScoreView);
+        //Style and set totalScoreView depending on player
         if(currentPlayer==1){
-            totalScoreView.setText("Total Score: " + scorePlayer1);
+            roundManager.styleTextView((TextView) findViewById(R.id.totalScoreView),"Total Score: " + scorePlayer1,24);
         }else{
-            totalScoreView.setText("Total Score: " + scorePlayer2);
+            roundManager.styleTextView((TextView) findViewById(R.id.totalScoreView),"Total Score: " + scorePlayer2,24);
         }
-        totalScoreView.setTypeface(font);
-        totalScoreView.setTextSize(24);
-        totalScoreView.setTextColor(Color.BLACK);
+
         int numPlayers = 1;
         if(gameMode > 1){
             numPlayers = 2;

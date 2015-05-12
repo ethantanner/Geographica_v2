@@ -22,30 +22,22 @@ public class MainActivity extends Activity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
-        final Typeface font = Typeface.createFromAsset(this.getAssets(), "fonts/moon_light.otf");
+        RoundManager roundManager = new RoundManager(getBaseContext());
 
-        TextView titleTextView = (TextView) findViewById(R.id.title);
-        titleTextView.setTypeface(font);
-        titleTextView.setTextSize(32);
-        titleTextView.setTextColor(Color.WHITE);
+        //Style title
+        roundManager.styleTextView((TextView) findViewById(R.id.title), "Geographica", 32, Color.WHITE);
 
         Button singlePlayerButton = (Button) findViewById(R.id.single);
         singlePlayerButton.setOnClickListener(singlePlayerButtonListener);
-        singlePlayerButton.setTypeface(font);
-        singlePlayerButton.setTextSize(24);
-        singlePlayerButton.setTextColor(Color.BLACK);
+        roundManager.styleButton(singlePlayerButton,24);
 
         Button localMultiplayerButton = (Button) findViewById(R.id.multiplayerLocal);
         localMultiplayerButton.setOnClickListener(localMultiplayerButtonListener);
-        localMultiplayerButton.setTypeface(font);
-        localMultiplayerButton.setTextSize(24);
-        localMultiplayerButton.setTextColor(Color.BLACK);
+        roundManager.styleButton(localMultiplayerButton,24);
 
         Button onlineMultiplayerButton = (Button) findViewById(R.id.multiplayerOnline);
         onlineMultiplayerButton.setOnClickListener(onlineMultiplayerButtonListener);
-        onlineMultiplayerButton.setTypeface(font);
-        onlineMultiplayerButton.setTextSize(24);
-        onlineMultiplayerButton.setTextColor(Color.BLACK);
+        roundManager.styleButton(onlineMultiplayerButton,24);
 
     }
 

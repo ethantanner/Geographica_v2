@@ -48,8 +48,6 @@ public class Map extends Activity implements OnMapReadyCallback {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.map);
 
-        final Typeface font = Typeface.createFromAsset(this.getAssets(), "fonts/moon_light.otf");
-
         Intent intent = getIntent();
         currentPlayer = intent.getIntExtra("currentPlayer", 0);
         scorePlayer1 = intent.getIntExtra("scorePlayer1", 0);
@@ -67,15 +65,11 @@ public class Map extends Activity implements OnMapReadyCallback {
 
         Button panoramaButton = (Button) findViewById(R.id.panoramaButton);
         panoramaButton.setOnClickListener(panoramaButtonListener);
-        panoramaButton.setTypeface(font);
-        panoramaButton.setTextSize(24);
-        panoramaButton.setTextColor(Color.BLACK);
+        roundManager.styleButton(panoramaButton,24);
 
         Button submitButton = (Button) findViewById(R.id.submitButton);
         submitButton.setOnClickListener(submitButtonListener);
-        submitButton.setTypeface(font);
-        submitButton.setTextSize(24);
-        submitButton.setTextColor(Color.BLACK);
+        roundManager.styleButton(submitButton,24);
 
         roundManager.setTopTextView((TextView) findViewById(R.id.topTextView),gameMode,roundNum, currentPlayer);
     }

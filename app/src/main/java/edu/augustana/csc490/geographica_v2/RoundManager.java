@@ -7,6 +7,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -132,14 +133,31 @@ public class RoundManager {
         topTextView.setTextColor(Color.BLACK);
     }
 
-    public void setTopTextView(TextView topTextView, String textViewText){
+    public void styleTextView(TextView textView, String text, int size){
+
+        final Typeface font = Typeface.createFromAsset(parentContext.getAssets(), "fonts/moon_light.otf");
+        textView.setText(text);
+        textView.setTypeface(font);
+        textView.setTextSize(size);
+        textView.setTextColor(Color.BLACK);
+    }
+
+    public void styleTextView(TextView textView, String text, int size, int color){
+
+        final Typeface font = Typeface.createFromAsset(parentContext.getAssets(), "fonts/moon_light.otf");
+        textView.setText(text);
+        textView.setTypeface(font);
+        textView.setTextSize(size);
+        textView.setTextColor(color);
+    }
+
+    public void styleButton(Button button, int size){
 
         final Typeface font = Typeface.createFromAsset(parentContext.getAssets(), "fonts/moon_light.otf");
 
-        topTextView.setText(textViewText);
-        topTextView.setTypeface(font);
-        topTextView.setTextSize(24);
-        topTextView.setTextColor(Color.BLACK);
+        button.setTypeface(font);
+        button.setTextSize(size);
+        button.setTextColor(Color.BLACK);
 
     }
 
