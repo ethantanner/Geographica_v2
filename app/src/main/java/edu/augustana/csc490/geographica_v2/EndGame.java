@@ -32,6 +32,7 @@ public class EndGame extends Activity {
 
     int currentPlayer;
     String playerName;
+    int playerTotal;
     int scorePlayer1;
     int scorePlayer2;
     int roundNum;
@@ -66,6 +67,7 @@ public class EndGame extends Activity {
         if(gameMode == 1){
             roundManager.styleTextView((TextView) findViewById(R.id.roundScoreView),"Total Score: " + scorePlayer1,24);
             //call to method that handles the parse calls.
+            updatePlayerCount();
             updateLeaderboard();
         }else{
             roundManager.styleTextView((TextView) findViewById(R.id.roundScoreView),"Player1 Score: " + scorePlayer1,24);
@@ -76,6 +78,27 @@ public class EndGame extends Activity {
             roundManager.styleTextView((TextView) findViewById(R.id.totalScoreView), "Player2 Score: " + scorePlayer2, 24);
         }
 
+    }
+
+    public void updatePlayerCount(){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("PlayerCount");
+        query.getInBackground("FA6PbcJq7N", new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject playerCount, ParseException e) {
+                if(e == null){
+                    int tempNum = (int) playerCount.getNumber("totalPlayers");
+                    Log.d("INFO", "Current Player Count: " + tempNum);
+                    tempNum = tempNum + 1;
+                    playerTotal = tempNum;
+                    playerCount.put("totalPlayers", tempNum);
+                    playerCount.saveInBackground();
+                    Log.d("INFO", "Current Player Count: " + tempNum);
+                    Log.d("INFO", "Player Name: " + playerName);
+                }else{
+                    Log.d("QUERY", "Error in query for PlayerCount: " + e.getMessage());
+                }
+            }
+        });
     }
 
     public void updateLeaderboard(){
@@ -91,13 +114,39 @@ public class EndGame extends Activity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         playerName = input.getText().toString();
+                        if(playerName.equals("")){
+                            playerName = "PlayerNum_" + playerTotal;
+                            Log.d("PLAYER NUMBER", playerName);
+                        }
                         ParseObject highScores = new ParseObject("HighScores");
                         highScores.put("userName", playerName);
                         highScores.put("score", scorePlayer1);
                         highScores.saveInBackground();
+                        displayHighScore();
                     }
                 });
         builder.show();
+    }
+
+
+    public void displayHighScore(){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("HighScores");
+        query.orderByDescending("score");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> scoreList, ParseException e) {
+                if (e == null) {
+                    int i = 0;
+                    String scores = "";
+                    while(i < 10){
+                        scores = scores + scoreList.get(i).get("userName") + ":\t" + scoreList.get(i).get("score") + "\n";
+                        i++;
+                    }
+                    Log.d("NAMES", scores);
+                } else {
+                    Log.d("QUERY", "Error in query for HighScores: " + e.getMessage());
+                }
+            }
+        });
     }
 
     public View.OnClickListener mainMenuButtonListener = new View.OnClickListener() {
