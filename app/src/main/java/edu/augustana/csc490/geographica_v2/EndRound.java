@@ -48,6 +48,11 @@ public class EndRound extends Activity {
         Button nextRoundButton = (Button) findViewById(R.id.nextRoundButton);
         nextRoundButton.setOnClickListener(nextRoundButtonListener);
         roundManager.styleButton(nextRoundButton,24);
+        if(gameMode == 2 && currentPlayer == 1){
+            nextRoundButton.setText("Pass to Player 2");
+        }else if(gameMode == 2 && currentPlayer == 2){
+            nextRoundButton.setText("Pass to Player 1");
+        }
 
         //Style and set roundScoreView
         roundManager.styleTextView((TextView) findViewById(R.id.roundScoreView),"Last Round: " + roundScore,24);

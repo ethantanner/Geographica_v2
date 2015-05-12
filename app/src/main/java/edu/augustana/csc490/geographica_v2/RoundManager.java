@@ -81,8 +81,10 @@ public class RoundManager {
 
         List<LatLng> americasPoly = getPolygons.getAmericas();
         List<LatLng> afroEurAsiaPoly = getPolygons.getAfroEurAsia();
+        List<LatLng> australiaPoly = getPolygons.getAustralia();
+        List<LatLng> japanPoly = getPolygons.getJapan();
 
-        while(!containsLocation(location,americasPoly,false) && !containsLocation(location,afroEurAsiaPoly,false)){
+        while(!containsLocation(location,americasPoly,false) && !containsLocation(location,afroEurAsiaPoly,false) && !containsLocation(location,australiaPoly,false) && !containsLocation(location,japanPoly,false)){
             location = getRandomLocation();
         }
         return location;
@@ -132,7 +134,7 @@ public class RoundManager {
         if(gameMode == 1){
             topTextView.setText("Round: " + roundNum);
         }else{
-            topTextView.setText("Round: " + roundNum + " Player " + currentPlayer);
+            topTextView.setText("Round: " + roundNum + "  Player: " + currentPlayer);
         }
         topTextView.setTypeface(font);
         topTextView.setTextSize(24);
