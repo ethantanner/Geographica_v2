@@ -69,17 +69,21 @@ public class RoundManager {
         Log.w("random Latitude:", Double.toString(latitude));
         Log.w("random Longitude:", Double.toString(longitude));
 
-        //if(!hasCountryCode(new LatLng(latitude,longitude))){
-        //    getRandomLocation();
-
-
-        if(!containsLocation(new LatLng(latitude,longitude),new GetPolygons().getAmericas(),false)){
-            getRandomLocation();
-            Log.w("loop","");
-        }
-
         return new LatLng(latitude,longitude);
 
+
+    }
+
+    public LatLng getLatLngSpecial(){
+
+        LatLng location = getRandomLocation();
+
+        List<LatLng> poly = new GetPolygons().getAmericas();
+
+        while(!containsLocation(location,poly,false)){
+            location = getRandomLocation();
+        }
+        return location;
     }
 
     private boolean hasCountryCode(LatLng latLng){
