@@ -30,7 +30,9 @@
             android:id="@+id/single"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:background="#FFFFFF"
+            android:padding="10dp" />
 
         <Space
             android:layout_width="20px"
@@ -43,7 +45,9 @@
             android:id="@+id/multiplayerOnline"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:background="#FFFFFF"
+            android:padding="10dp" />
 
         <Space
             android:layout_width="20px"
@@ -56,7 +60,9 @@
             android:id="@+id/multiplayerLocal"
             android:layout_above="@+id/multiplayerOnline"
             android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:background="#FFFFFF"
+            android:padding="10dp" />
 
     </LinearLayout>
 </RelativeLayout>
