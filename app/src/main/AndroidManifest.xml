@@ -29,6 +29,8 @@
             android:label="EndRound"/>
         <activity android:name=".EndGame"
             android:label="EndGame"/>
+        <activity android:name=".MultiplayerActivity"
+            android:label="MultiplayerActiviry"/>
 
 
         <meta-data

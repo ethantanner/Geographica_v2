@@ -11,6 +11,9 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.games.Games;
+
 
 public class MainActivity extends Activity {
 
@@ -66,14 +69,19 @@ public class MainActivity extends Activity {
             startGame(3);
         }
     };
-
     private void startGame(int gameMode){
-        Intent startGameIntent = new Intent(MainActivity.this, Panorama.class);
-        startGameIntent.putExtra("scorePlayer1", 0);
-        startGameIntent.putExtra("scorePlayer2",0);
-        startGameIntent.putExtra("roundNum", 1);
-        startGameIntent.putExtra("currentPlayer", 1);
-        startGameIntent.putExtra("gameMode", gameMode);
+        Intent startGameIntent;
+        if(gameMode==3){
+            startGameIntent= new Intent(MainActivity.this,MultiplayerActivity.class);
+        }
+        else {
+            startGameIntent = new Intent(MainActivity.this, Panorama.class);
+            startGameIntent.putExtra("scorePlayer1", 0);
+            startGameIntent.putExtra("scorePlayer2", 0);
+            startGameIntent.putExtra("roundNum", 1);
+            startGameIntent.putExtra("currentPlayer", 1);
+            startGameIntent.putExtra("gameMode", gameMode);
+        }
         startActivity(startGameIntent);
     }
 
