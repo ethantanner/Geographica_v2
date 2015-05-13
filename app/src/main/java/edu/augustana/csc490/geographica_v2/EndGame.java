@@ -64,17 +64,12 @@ public class EndGame extends Activity {
             //call to method that handles the parse calls.
             updatePlayerCount();
             updateLeaderboard(this);
-        }
-        if(gameMode==3){
-            roundManager.styleTextView((TextView) findViewById(R.id.roundScoreView),"Total Score: " + scorePlayer1,24);
-            updateChallengeLeaderboard(this);
-        }
-        else{
+        }else{
             roundManager.styleTextView((TextView) findViewById(R.id.roundScoreView),"Player1 Score: " + scorePlayer1,24);
         }
         roundManager.styleTextView((TextView) findViewById(R.id.topTextView), "Game Over",24);
 
-        if(gameMode == 2) {
+        if(gameMode != 1) {
             roundManager.styleTextView((TextView) findViewById(R.id.totalScoreView), "Player2 Score: " + scorePlayer2, 24);
         }
 
@@ -141,76 +136,9 @@ public class EndGame extends Activity {
                 });
         builder.show();
     }
-    public void updateChallengeLeaderboard(final Context context){
-        final EditText input = new EditText(this);
-        input.setInputType(InputType.TYPE_CLASS_TEXT);
-        //used to enter new data into parse HighScores table
-        AlertDialog.Builder builder = new AlertDialog.Builder(this)
-                .setTitle("New Score Entry")
-                .setMessage("Enter Player Name")
-                .setView(input)
-                .setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        playerName = input.getText().toString();
-                        if(playerName.equals("")){
-                            playerName = "PlayerNum_" + playerTotal;
-                        }
-                        ParseObject challengeHighScores = new ParseObject("Challenge_HighScores");
-                        challengeHighScores.put("userName", playerName);
-                        challengeHighScores.put("score", scorePlayer1);
-                        challengeHighScores.saveInBackground(new SaveCallback() {
-                            @Override
-                            public void done(ParseException e) {
-                                displayChallengeHighScore(context);
-                            }
-                        });
-                    }
-                });
-        builder.show();
-    }
 
-    public void displayChallengeHighScore(final Context context){
 
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Challenge_HighScores");
-        query.orderByAscending("score");
-        query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> scoreList, ParseException e) {
-                if (e == null) {
-                    int i = 0;
-                    boolean isTopTen = false;
-                    String scores = "";
-                    while(i < 10){
-                        if(scoreList.get(i).get("userName").equals(playerName)){
-                            isTopTen = true;
-                            scores = scores + (i+1) + ". " + scoreList.get(i).get("userName") + ":\t" + scoreList.get(i).get("score") + "*" + "\n";
-                        }else{
-                            scores = scores + (i+1) + ". " + scoreList.get(i).get("userName") + ":\t" + scoreList.get(i).get("score") + "\n";
-                        }
-                        i++;
-                    }
-                    if(!isTopTen){
-                        while(i < scoreList.size()){
-                            if(scoreList.get(i).get("userName").equals(playerName)){
-                                scores = scores + "\t . . . \n" + (i+1) + ". " + playerName + ":\t" + scorePlayer1;
-                                i = scoreList.size();
-                            }
-                            i++;
-                        }
-                    }
-                    AlertDialog.Builder builder = new AlertDialog.Builder(context)
-                            .setTitle("Current High Scores")
-                            .setMessage(scores);
-                    builder.show();
-                } else {
-                    Log.d("QUERY", "Error in query for Challenge_HighScores: " + e.getMessage());
-                }
-            }
-        });
-    }
     public void displayHighScore(final Context context){
-
         ParseQuery<ParseObject> query = ParseQuery.getQuery("HighScores");
         query.orderByAscending("score");
         query.findInBackground(new FindCallback<ParseObject>() {

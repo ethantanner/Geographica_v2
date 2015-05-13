@@ -47,8 +47,14 @@ public class Panorama extends Activity implements OnStreetViewPanoramaReadyCallb
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.panorama);
 
+        //values must be assigned in onCreate to prevent errors when setting up panorama
         Intent intent = getIntent();
-        initiateValues(intent);
+        currentPlayer = intent.getIntExtra("currentPlayer", 0);
+        scorePlayer1 = intent.getIntExtra("scorePlayer1", 0);
+        scorePlayer2 = intent.getIntExtra("scorePlayer2", 0);
+        roundNum = intent.getIntExtra("roundNum", 0);
+        gameMode = intent.getIntExtra("gameMode", -1);
+        panoID = intent.getStringExtra("panoID");
 
         Log.w("gameMode", ""+gameMode);
         Log.w("CurrentPlayer", ""+currentPlayer);
@@ -88,7 +94,7 @@ public class Panorama extends Activity implements OnStreetViewPanoramaReadyCallb
             Log.w("panoid", streetViewPanoramaLocation.panoId);
             SharedPreferences.Editor visitedLocationsEditor = visitedLocations.edit();
 
-            if(panoID != null) {
+            if(panoID == null) {
                 if (visitedLocations.contains(streetViewPanoramaLocation.panoId)) {
                     mainPanorama.setPosition(playRound(), 20000000);
                 }
@@ -137,18 +143,4 @@ public class Panorama extends Activity implements OnStreetViewPanoramaReadyCallb
             startActivity(mapViewIntent);
         }
     };
-
-    /**
-     * @param intent
-     * Initiates player scores, round number, round scores, and Google panorama ID
-     */
-    public void initiateValues(Intent intent){
-        currentPlayer = intent.getIntExtra("currentPlayer", 0);
-        scorePlayer1 = intent.getIntExtra("scorePlayer1", 0);
-        scorePlayer2 = intent.getIntExtra("scorePlayer2", 0);
-        roundNum = intent.getIntExtra("roundNum", 0);
-        gameMode = intent.getIntExtra("gameMode", -1);
-        panoID = intent.getStringExtra("panoID");
-    }
-
 }

@@ -55,16 +55,16 @@ public class EndRound extends Activity {
         }
 
         //Style and set roundScoreView
-        roundManager.styleTextView((TextView) findViewById(R.id.roundScoreView),"Last Round: " + roundScore,24);
+        roundManager.styleTextView((TextView) findViewById(R.id.roundScoreView),"Last Round: " + roundScore+"km",24);
 
         //Style and set topTextView
         roundManager.setTopTextView((TextView) findViewById(R.id.topTextView),gameMode,roundNum, currentPlayer);
 
         //Style and set totalScoreView depending on player
         if(currentPlayer==1){
-            roundManager.styleTextView((TextView) findViewById(R.id.totalScoreView),"Total Score: " + scorePlayer1,24);
+            roundManager.styleTextView((TextView) findViewById(R.id.totalScoreView),"Total Score: " + scorePlayer1+"km",24);
         }else{
-            roundManager.styleTextView((TextView) findViewById(R.id.totalScoreView),"Total Score: " + scorePlayer2,24);
+            roundManager.styleTextView((TextView) findViewById(R.id.totalScoreView),"Total Score: " + scorePlayer2+"km",24);
         }
 
         int numPlayers = 1;

@@ -1,7 +1,9 @@
 package edu.augustana.csc490.geographica_v2;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -50,7 +53,6 @@ public class Map extends Activity implements OnMapReadyCallback {
 
         Intent intent = getIntent();
         initiateValues(intent);
-
 
         roundManager = new RoundManager(getBaseContext());
 
