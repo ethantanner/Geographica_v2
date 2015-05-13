@@ -19,6 +19,7 @@ import com.google.android.gms.maps.StreetViewPanorama;
 import com.google.android.gms.maps.StreetViewPanoramaFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.StreetViewPanoramaLocation;
+import com.parse.ParseException;
 
 import java.util.ArrayList;
 
@@ -97,7 +98,7 @@ public class Panorama extends Activity implements OnStreetViewPanoramaReadyCallb
         }
     };
 
-    private LatLng playRound(){
+    private LatLng playRound() {
 
 
         if(gameMode == 1){
@@ -107,6 +108,10 @@ public class Panorama extends Activity implements OnStreetViewPanoramaReadyCallb
         if(gameMode == 2){
             roundManager.setTopTextView((TextView) findViewById(R.id.topTextView),gameMode,roundNum, currentPlayer);
             return roundManager.getLatLngSpecial();
+        }
+        if(gameMode ==3 ){
+            roundManager.setTopTextView((TextView) findViewById(R.id.topTextView),gameMode,roundNum, currentPlayer);
+            return roundManager.getLatLngChallenge(roundNum);
         }
         return new LatLng(0,0);
     }

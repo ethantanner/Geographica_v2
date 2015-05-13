@@ -21,7 +21,7 @@ import com.google.android.gms.maps.StreetViewPanoramaFragment;
  */
 public class EndRound extends Activity {
 
-    public final int NUM_ROUNDS = 3;
+    public final int NUM_ROUNDS = 5;
 
     int currentPlayer;
     int scorePlayer1;
@@ -68,7 +68,7 @@ public class EndRound extends Activity {
         }
 
         int numPlayers = 1;
-        if(gameMode > 1){
+        if(gameMode==2){
             numPlayers = 2;
         }
 
@@ -117,7 +117,7 @@ public class EndRound extends Activity {
     public View.OnClickListener nextRoundButtonListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            if(gameMode == 2 || gameMode == 3){
+            if(gameMode == 2){
                 if(currentPlayer == 2){
                     roundNum += 1;
                     currentPlayer = 1;

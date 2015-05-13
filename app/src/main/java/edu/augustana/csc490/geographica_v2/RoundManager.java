@@ -1,5 +1,6 @@
 package edu.augustana.csc490.geographica_v2;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -9,9 +10,14 @@ import android.location.Location;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import java.util.List;
 import java.util.Random;
@@ -19,9 +25,10 @@ import static edu.augustana.csc490.geographica_v2.PolyUtil.*;
 
 /**
  * Created by Ethan on 5/9/2015.
+ * Updated by Keegan on 51/12/2015.
  */
 public class RoundManager {
-
+    LatLng challengeLocation;
     Context parentContext;
 
     public RoundManager(Context parentContext){
@@ -89,7 +96,57 @@ public class RoundManager {
         }
         return location;
     }
+    public LatLng getLatLngChallenge(final int roundNum) {
+        //Gets the challenge location for the given round from parse and returns it.
+        Log.d("INLATLNGCHALLENGE","Entering the getLatLngChallenge method");
 
+        final ParseQuery<ParseObject> query = ParseQuery.getQuery("Challenge_Locations");
+
+
+        double latitude = 0;
+        double longitude=0;
+        try {
+            latitude = (double) query.find().get(roundNum - 1).get("latitude");
+            longitude = (double) query.find().get(roundNum - 1).get("longitude");
+            Log.d("LOCATION", "Setting location to (" + latitude + "," + longitude + ")");
+            challengeLocation = new LatLng(latitude, longitude);
+            Log.d("NEWLOCATION", "Current location is (" + latitude + "," + longitude + ")");
+        } catch (ParseException e) {
+            Log.e("ParseException",e.toString());
+        }
+
+
+
+
+
+
+
+        /* Trying to use findInBackground at this point in the process doesn't give it enough time to finish
+           before the game starts up.
+           
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> locationList, ParseException e) {
+                if (e == null) {
+                    double latitude = (double) locationList.get(roundNum - 1).get("latitude");
+                    double longitude = (double) locationList.get(roundNum - 1).get("longitude");
+                    Log.d("LOCATION", "Setting location to (" + latitude + "," + longitude + ")");
+                    challengeLocation = new LatLng(latitude, longitude);
+                    Log.d("NEWLOCATION", "Current location is (" + latitude + "," + longitude + ")");
+
+                } else {
+                    Log.d("QUERY", "Error in query for Challenge_Locations: " + e.getMessage());
+                    challengeLocation = new LatLng(0, 0);
+                }
+            }
+        });
+        */
+        if(challengeLocation==null){
+            Log.d("fail","ChallengeLocation was null?"+challengeLocation.toString());
+            return new LatLng(0,0);
+        }
+        Log.d("success","ChallengeLocation wasn't null?"+challengeLocation.toString());
+        return challengeLocation;
+    }
     private boolean hasCountryCode(LatLng latLng){
 
         Geocoder geoCoder = new Geocoder(parentContext);
@@ -131,7 +188,7 @@ public class RoundManager {
 
         final Typeface font = Typeface.createFromAsset(parentContext.getAssets(), "fonts/moon_light.otf");
 
-        if(gameMode == 1){
+        if(gameMode == 1 || gameMode==3){
             topTextView.setText("Round: " + roundNum);
         }else{
             topTextView.setText("Round: " + roundNum + "  Player: " + currentPlayer);
