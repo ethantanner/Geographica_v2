@@ -123,7 +123,7 @@ public class RoundManager {
 
         /* Trying to use findInBackground at this point in the process doesn't give it enough time to finish
            before the game starts up.
-           
+
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> locationList, ParseException e) {
                 if (e == null) {
