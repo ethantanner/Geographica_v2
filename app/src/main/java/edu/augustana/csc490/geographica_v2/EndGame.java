@@ -60,17 +60,17 @@ public class EndGame extends Activity {
         roundManager.styleButton(mainMenuButton,24);
 
         if(gameMode == 1){
-            roundManager.styleTextView((TextView) findViewById(R.id.roundScoreView),"Total Score: " + scorePlayer1,24);
+            roundManager.styleTextView((TextView) findViewById(R.id.roundScoreView),"Total Score: " + scorePlayer1+"km",24);
             //call to method that handles the parse calls.
             updatePlayerCount();
             updateLeaderboard(this);
         }else{
-            roundManager.styleTextView((TextView) findViewById(R.id.roundScoreView),"Player1 Score: " + scorePlayer1,24);
+            roundManager.styleTextView((TextView) findViewById(R.id.roundScoreView),"Player1 Score: " + scorePlayer1+"km",24);
         }
         roundManager.styleTextView((TextView) findViewById(R.id.topTextView), "Game Over",24);
 
         if(gameMode != 1) {
-            roundManager.styleTextView((TextView) findViewById(R.id.totalScoreView), "Player2 Score: " + scorePlayer2, 24);
+            roundManager.styleTextView((TextView) findViewById(R.id.totalScoreView), "Player2 Score: " + scorePlayer2+"km", 24);
         }
 
     }
