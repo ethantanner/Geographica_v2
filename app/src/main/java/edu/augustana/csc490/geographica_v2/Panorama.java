@@ -106,7 +106,6 @@ public class Panorama extends Activity implements OnStreetViewPanoramaReadyCallb
 
     private LatLng playRound() {
 
-
         if(gameMode == 1){
             roundManager.setTopTextView((TextView) findViewById(R.id.topTextView),gameMode,roundNum, currentPlayer);
             return roundManager.getLatLngSpecial();

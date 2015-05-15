@@ -8,6 +8,7 @@ import com.parse.Parse;
  * Created by Owner on 5/10/2015.
  */
 public class UseParse extends Application {
+    //allows for data storage using parse
     @Override
     public void onCreate() {
         super.onCreate();

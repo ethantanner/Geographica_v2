@@ -35,6 +35,7 @@ public class RoundManager {
         this.parentContext = parentContext;
     }
 
+    //gets a random location for the street view
     public LatLng getRandomLocation(){
         Random r = new Random();
 
@@ -80,6 +81,7 @@ public class RoundManager {
 
     }
 
+    //gets polygons defining different major areas
     public LatLng getLatLngSpecial(){
 
         LatLng location = getRandomLocation();
@@ -161,6 +163,12 @@ public class RoundManager {
             }
     }
 
+    /**
+     * @param myMarker
+     * @param latLngOfPanoID
+     * @return user's score
+     * Calculates and returns score based on how close the user's guess was to the actual location
+     */
     public int calculateScore(Marker myMarker, LatLng latLngOfPanoID){
 
         LatLng guessPosition = myMarker.getPosition();
@@ -183,6 +191,15 @@ public class RoundManager {
         return newScore;
 
     }
+
+    /**
+     * @param topTextView
+     * @param gameMode
+     * @param roundNum
+     * @param currentPlayer
+     * Sets the topTextView to display the round number
+     * If it's a multiplayer game, also displays the player number as well as the round number
+     */
 
     public void setTopTextView(TextView topTextView, int gameMode, int roundNum, int currentPlayer){
 

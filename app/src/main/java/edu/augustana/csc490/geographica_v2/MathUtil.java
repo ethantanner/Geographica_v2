@@ -21,7 +21,7 @@ package edu.augustana.csc490.geographica_v2;
         import static java.lang.Math.*;
 
 /**
- * Utility functions that are used my both PolyUtil and SphericalUtil.
+ * Utility functions that are used by both PolyUtil and SphericalUtil.
  */
 class MathUtil {
     /**
