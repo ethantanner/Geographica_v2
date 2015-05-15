@@ -89,6 +89,10 @@ public class EndGame extends Activity {
         panoID = intent.getStringExtra("panoID");
     }
 
+    /**
+     * method updatePlayerCount - sends a query to parse to get information about the
+     * total number of players
+     */
     public void updatePlayerCount(){
         ParseQuery<ParseObject> query = ParseQuery.getQuery("PlayerCount");
         query.getInBackground("FA6PbcJq7N", new GetCallback<ParseObject>() {
@@ -107,6 +111,10 @@ public class EndGame extends Activity {
         });
     }
 
+    /**
+     * @param context
+     * Allows the user to input their score, and adds it to the high score list
+     */
     public void updateLeaderboard(final Context context){
         final EditText input = new EditText(this);
         input.setInputType(InputType.TYPE_CLASS_TEXT);
@@ -117,6 +125,7 @@ public class EndGame extends Activity {
                 .setView(input)
                 .setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    //set what happens when the user clicks the OK button
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         playerName = input.getText().toString();
@@ -137,39 +146,48 @@ public class EndGame extends Activity {
         builder.show();
     }
 
-
+    /**
+     * @param context
+     * Displays the high score list after the user's score has been added
+     * If the user is in the top 10 scores, adds to the top 10 list
+     */
     public void displayHighScore(final Context context){
         ParseQuery<ParseObject> query = ParseQuery.getQuery("HighScores");
         query.orderByAscending("score");
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> scoreList, ParseException e) {
                 if (e == null) {
-                    int i = 0;
+                    int counter = 0;
                     boolean isTopTen = false;
                     String scores = "";
-                    while(i < 10){
-                        if(scoreList.get(i).get("userName").equals(playerName)){
+                    while(counter < 10){
+                        //user's score is in the top 10
+                        if(scoreList.get(counter).get("userName").equals(playerName)){
                             isTopTen = true;
-                            scores = scores + (i+1) + ". " + scoreList.get(i).get("userName") + ":\t" + scoreList.get(i).get("score") + "*" + "\n";
+                            scores = scores + (counter+1) + ". " + scoreList.get(counter).get("userName") + ":\t" + scoreList.get(counter).get("score") + "*" + "\n";
                         }else{
-                            scores = scores + (i+1) + ". " + scoreList.get(i).get("userName") + ":\t" + scoreList.get(i).get("score") + "\n";
+                            scores = scores + (counter+1) + ". " + scoreList.get(counter).get("userName") + ":\t" + scoreList.get(counter).get("score") + "\n";
                         }
-                        i++;
+                        counter++;
                     }
+                    //creates display of high score if the user is not in the top 10
+                    //show the top 10 scores, and then a ... and then the user's score
                     if(!isTopTen){
-                        while(i < scoreList.size()){
-                            if(scoreList.get(i).get("userName").equals(playerName)){
-                                scores = scores + "\t . . . \n" + (i+1) + ". " + playerName + ":\t" + scorePlayer1;
-                                i = scoreList.size();
+                        while(counter < scoreList.size()){
+                            if(scoreList.get(counter).get("userName").equals(playerName)){
+                                scores = scores + "\t . . . \n" + (counter+1) + ". " + playerName + ":\t" + scorePlayer1;
+                                counter = scoreList.size();
                             }
-                            i++;
+                            counter++;
                         }
                     }
+                    //create message showing high scores
                     AlertDialog.Builder builder = new AlertDialog.Builder(context)
                             .setTitle("Current High Scores")
                             .setMessage(scores);
                     builder.show();
                 } else {
+                    //error if query fails
                     Log.d("QUERY", "Error in query for HighScores: " + e.getMessage());
                 }
             }

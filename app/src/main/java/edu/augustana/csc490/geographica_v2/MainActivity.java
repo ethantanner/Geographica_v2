@@ -69,6 +69,7 @@ public class MainActivity extends Activity {
             startGame(3);
         }
     };
+
     private void startGame(int gameMode){
             Intent startGameIntent= new Intent(MainActivity.this, Panorama.class);
             startGameIntent.putExtra("scorePlayer1", 0);

@@ -48,6 +48,7 @@ public class EndRound extends Activity {
         Button nextRoundButton = (Button) findViewById(R.id.nextRoundButton);
         nextRoundButton.setOnClickListener(nextRoundButtonListener);
         roundManager.styleButton(nextRoundButton,24);
+        //changes text on the next round button based on the game mode
         if(gameMode == 2 && currentPlayer == 1){
             nextRoundButton.setText("Pass to Player 2");
         }else if(gameMode == 2 && currentPlayer == 2){
@@ -66,7 +67,7 @@ public class EndRound extends Activity {
         }else{
             roundManager.styleTextView((TextView) findViewById(R.id.totalScoreView),"Total Score: " + scorePlayer2+"km",24);
         }
-
+        //set the number of players based on the game mode
         int numPlayers = 1;
         if(gameMode==2){
             numPlayers = 2;
@@ -114,6 +115,7 @@ public class EndRound extends Activity {
         panoID = intent.getStringExtra("panoID");
     }
 
+    //handles click on the next round button
     public View.OnClickListener nextRoundButtonListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
