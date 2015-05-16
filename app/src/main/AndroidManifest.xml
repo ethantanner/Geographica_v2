@@ -29,8 +29,6 @@
             android:label="EndRound"/>
         <activity android:name=".EndGame"
             android:label="EndGame"/>
-        <activity android:name=".MultiplayerActivity"
-            android:label="MultiplayerActiviry"/>
 
 
         <meta-data
@@ -39,7 +37,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCnncfjSlRmJj5wiido3AoDCP0Xp2aMzFQ"/>
+            android:value="AIzaSyDFgPTYJL4jBBXmQMlOZIIm8h8Imu8aEcw"/>
 
 
 
